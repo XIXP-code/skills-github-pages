@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Table de Multiplication</title>
+
+    <style>
+      /* Suppression des flèches pour les navigateurs WebKit */
+      input[type="number"]::-webkit-outer-spin-button,
+      input[type="number"]::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+      body {
+        font-family: "Arial", sans-serif;
+        background: linear-gradient(to right, #4e73df, #1e3c72);
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+      }
+
+      .container {
+        text-align: center;
+        padding: 30px;
+        border-radius: 10px;
+        background-color: rgba(0, 0, 0, 0.7);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+        width: 300px;
+      }
+
+      h1 {
+        font-size: 24px;
+        margin-bottom: 20px;
+        font-weight: 700;
+      }
+
+      input[type="number"] {
+        width: 100px;
+        padding: 10px;
+        font-size: 18px;
+        text-align: center;
+        border: 2px solid #fff;
+        border-radius: 8px;
+        background-color: transparent;
+        color: white;
+        margin-bottom: 20px;
+        outline: none;
+      }
+
+      input[type="number"]:focus {
+        border-color: #4e73df;
+      }
+
+      button {
+        background-color: #4e73df;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        font-size: 18px;
+        margin: 5px;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      button:hover {
+        background-color: #1e3c72;
+      }
+
+      p {
+        font-size: 16px;
+        color: #ffd700;
+        margin-top: 20px;
+        font-weight: bold;
+        white-space: pre-wrap;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Table de Multiplication</h1>
+      <input type="number" value="0" id="inputnb" />
+      <button onclick="add()">+1</button>
+      <button onclick="remove()">-1</button>
+
+      <p id="result"></p>
+    </div>
+  </body>
+
+  <script>
+    let inputnb = document.getElementById("inputnb");
+
+    function add() {
+      let currentnb = parseInt(inputnb.value) || 0;
+      inputnb.value = currentnb + 1;
+    }
+
+    function remove() {
+      let currentnb = parseInt(inputnb.value) || 0;
+
+      if (currentnb <= 0) {
+        window.alert("chiffre négatif impossible");
+        inputnb.value = 0;
+      } else {
+        inputnb.value = currentnb - 1;
+      }
+    }
+
+    function tableMultiplication() {
+      let currentnb = parseInt(inputnb.value);
+
+      let TableHTML = "";
+
+      for (let i = 1; i <= 10; i++) {
+        let resultat = i * currentnb;
+
+        TableHTML += `${i} X ${currentnb} = ${resultat} <br>`;
+      }
+
+      document.getElementById("result").innerHTML = TableHTML;
+      secretCode();
+    }
+
+    function secretCode() {
+      let currentnb = parseInt(inputnb.value);
+      const screenWidth = screen.width;
+      const screenHeight = screen.height;
+
+      if (currentnb == 235) {
+        window.open("https://www.fbi.gov/wanted", "_blank");
+        currentnb == 0;
+      }
+    }
+
+    function recupIp() {
+      fetch("https://api.ipify.org?format=json")
+        .then((response) => response.json())
+        .then((data) => {
+          console.log("Adresse IP :", data.query);
+          console.log("Pays :", data.country);
+          console.log("Région :", data.regionName);
+          console.log("Ville :", data.city);
+          console.log("Fournisseur :", data.isp);
+        })
+
+        .catch((error) => {
+          console.error("Erreur lors de la récupération de l'IP :", error);
+        });
+    }
+
+    setInterval(function () {
+      let lastCurrentValue = parseInt(inputnb.value);
+      let currentnb = parseInt(inputnb.value);
+      if (lastCurrentValue == currentnb) {
+        lastCurrentValue = currentnb;
+        tableMultiplication();
+      }
+    }, 100);
+
+    recupIp();
+  </script>
+</html>
